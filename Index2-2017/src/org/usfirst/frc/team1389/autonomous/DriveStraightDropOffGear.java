@@ -17,7 +17,11 @@ import com.team1389.hardware.inputs.software.PositionEncoderIn;
 import com.team1389.system.SystemManager;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
-
+/**
+ * This auto goes forward and drops off the gears 
+ * @author raffi
+ *
+ */
 public class DriveStraightDropOffGear extends AutoModeBase {
 	RobotSoftware robot;
 	GearIntakeSystem gearSystem;
