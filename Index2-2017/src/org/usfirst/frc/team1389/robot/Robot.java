@@ -20,8 +20,6 @@ public class Robot extends IterativeRobot {
 	RobotSoftware robot;
 	TeleopMain teleOperator;
 	AutoModeExecuter autoModeExecuter;
-	
-	
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -33,6 +31,8 @@ public class Robot extends IterativeRobot {
 		robot = RobotSoftware.getInstance();
 		teleOperator = new TeleopMain(robot);
 		autoModeExecuter = new AutoModeExecuter();
+		DebugDash.getInstance().watch(robot.rearLeft.getPositionInput().getWatchable("Left encoder"),
+				robot.rearRight.getPositionInput().getWatchable("Right encoder"),robot.gyro.getAngleInput().getWatchable("gyro"));
 	}
 
 	@Override
@@ -42,8 +42,6 @@ public class Robot extends IterativeRobot {
 		AutoModeBase selectedAutonMode = DashboardInput.getInstance().getSelectedAutonMode();
 		autoModeExecuter.setAutoMode(selectedAutonMode);
 		robot.threadManager.borrowThreadToRun(autoModeExecuter);
-		DebugDash.getInstance().watch(selectedAutonMode,
-				robot.frontLeft.getPositionInput().getWatchable("Left encoder"));
 	}
 
 	/**

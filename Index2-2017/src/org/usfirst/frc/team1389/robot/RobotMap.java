@@ -35,6 +35,8 @@ public class RobotMap {
 	protected final boolean sinv_LEFT_FRONT_MOTOR = false;
 	protected final CAN can_RIGHT_FRONT_MOTOR = new CAN(6); protected final boolean inv_RIGHT_FRONT_MOTOR = false;
 	protected final boolean sinv_RIGHT_FRONT_MOTOR = true;
+	protected final boolean sinv_RIGHT_REAR_MOTOR = true;
+
 	protected final CAN can_LEFT_REAR_MOTOR = new CAN(5); protected final boolean inv_LEFT_REAR_MOTOR = false;
 	protected final CAN can_RIGHT_REAR_MOTOR = new CAN(4); protected final boolean inv_RIGHT_REAR_MOTOR = true;
 	protected final CAN can_ARM_ELEVATOR_MOTOR = new CAN(7); protected final boolean inv_ARM_ELEVATOR_MOTOR = false;

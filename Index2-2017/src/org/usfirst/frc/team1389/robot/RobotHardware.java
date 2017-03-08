@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1389.robot;
 
+import com.team1389.hardware.inputs.hardware.GyroHardware;
 import com.team1389.hardware.inputs.hardware.PDPHardware;
 import com.team1389.hardware.outputs.hardware.CANLightHardware;
 import com.team1389.hardware.outputs.hardware.CANTalonHardware;
@@ -27,6 +28,7 @@ public class RobotHardware extends RobotLayout {
 		pdp = new PDPHardware(new CAN(0), registry);
 		ballIntake = new VictorHardware(inv_BALL_INTAKE_MOTOR, pwm_BALL_INTAKE_MOTOR, registry);
 		climber = new VictorHardware(inv_CLIMBER_MOTOR, pwm_CLIMBER_MOTOR, registry);
+		gyro = new GyroHardware<>(GyroHardware.ADXRS_450,spi_GyroPort, registry);
 		initDriveTrain();
 		initDriveTrainPneumatics();
 		initGearIntake();
@@ -54,7 +56,7 @@ public class RobotHardware extends RobotLayout {
 		frontRight = new CANTalonHardware(inv_RIGHT_FRONT_MOTOR, sinv_RIGHT_FRONT_MOTOR, can_RIGHT_FRONT_MOTOR,
 				registry);
 		rearLeft = new CANTalonHardware(inv_LEFT_REAR_MOTOR, can_LEFT_REAR_MOTOR, registry);
-		rearRight = new CANTalonHardware(inv_RIGHT_REAR_MOTOR, can_RIGHT_REAR_MOTOR, registry);
+		rearRight = new CANTalonHardware(inv_RIGHT_REAR_MOTOR, sinv_RIGHT_REAR_MOTOR, can_RIGHT_REAR_MOTOR, registry);
 
 	}
 	

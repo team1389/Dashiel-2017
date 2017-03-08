@@ -30,7 +30,7 @@ public class RobotSoftware extends RobotHardware {
 	}
 
 	public RobotSoftware() {
-		 gyroInput = new AngleIn<>(Position.class, () -> 0.0);
+		 gyroInput = gyro.getAngleInput();
 		 pistons = flPiston.getDigitalOut().addFollowers(frPiston.getDigitalOut(),
 					rlPiston.getDigitalOut(), rrPiston.getDigitalOut(), new DigitalOut(System.out::println));
 		 voltageDrive = new FourDriveOut<>(frontLeft.getVoltageOutput(),
@@ -43,10 +43,9 @@ public class RobotSoftware extends RobotHardware {
 		 armVel = armElevator.getSpeedInput().scale(28 / 12).mapToAngle(Speed.class);
 		 gearIntakeCurrent = pdp.getCurrentIn(pdp_GEAR_INTAKE_CURRENT);
 		 Function<PositionEncoderIn,RangeIn<Position>> posFunc = e -> e.<PositionEncoderIn>setTicksPerRotation(1024)
-					.mapToRange(0, 1)
-					.scale(18 / 16);
-		 flPos = posFunc.apply(frontLeft.getPositionInput());
-		 frPos = posFunc.apply(frontRight.getPositionInput());
+					.mapToRange(0, 1);
+		 flPos = posFunc.apply(rearLeft.getPositionInput());
+		 frPos = posFunc.apply(rearRight.getPositionInput());
 		 threadManager = new OhmThreadService(20);
 	}
 
