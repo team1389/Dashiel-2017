@@ -2,7 +2,6 @@ package org.usfirst.frc.team1389.robot;
 
 import com.team1389.hardware.inputs.hardware.GyroHardware;
 import com.team1389.hardware.inputs.hardware.PDPHardware;
-import com.team1389.hardware.outputs.hardware.CANLightHardware;
 import com.team1389.hardware.outputs.hardware.CANTalonHardware;
 import com.team1389.hardware.outputs.hardware.DoubleSolenoidHardware;
 import com.team1389.hardware.outputs.hardware.VictorHardware;
@@ -22,7 +21,7 @@ public class RobotHardware extends RobotLayout {
 	 * Initializes robot hardware by subsystem. <br>
 	 * note: use this method as an index to show hardware initializations that occur, and to find
 	 * the init code for a particular system's hardware
-	 */
+	 */	
 	protected RobotHardware() {
 		registry = new Registry();
 		pdp = new PDPHardware(new CAN(0), registry);
