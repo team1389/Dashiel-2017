@@ -2,6 +2,7 @@ package org.usfirst.frc.team1389.operation;
 
 import java.util.function.Supplier;
 
+import org.usfirst.frc.team1389.robot.RobotConstants;
 import org.usfirst.frc.team1389.robot.RobotSoftware;
 import org.usfirst.frc.team1389.robot.controls.ControlBoard;
 import org.usfirst.frc.team1389.systems.BallIntakeSystem;
@@ -10,12 +11,16 @@ import org.usfirst.frc.team1389.systems.ClimberSystem;
 import org.usfirst.frc.team1389.systems.FancyLightSystem;
 import org.usfirst.frc.team1389.systems.GearIntakeSystem;
 import org.usfirst.frc.team1389.systems.OctoMecanumSystem;
+import org.usfirst.frc.team1389.systems.PositionEstimatorSystem;
 import org.usfirst.frc.team1389.systems.TeleopGearIntakeSystem;
 import org.usfirst.frc.team1389.watchers.DebugDash;
 
+import com.team1389.hardware.inputs.software.AngleIn;
+import com.team1389.hardware.value_types.Position;
 //import com.ctre.CANTalon.FeedbackDevice;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
+import com.team1389.trajectory.RobotState;
 
 public class TeleopMain {
 	SystemManager manager;
@@ -33,7 +38,8 @@ public class TeleopMain {
 		//Subsystem ballIntake = setUpBallIntake(() -> gearIntake.getState());
 		Subsystem climbing = setUpClimbing();
 		Subsystem cameraSystem = new CameraSystem(controls.i_right_trigger.get());
-		manager = new SystemManager(drive);
+		Subsystem estimator = setUpEstimator(() -> GearIntakeSystem.State.STOWED);
+		manager = new SystemManager(drive, estimator);
 		manager.init();
 		DebugDash.getInstance().watch(
 				manager.getSystemWatchables().put(robot.armElevator.getAbsoluteIn().getWatchable("absolute pos"),
@@ -64,6 +70,14 @@ public class TeleopMain {
 		return new ClimberSystem(controls.i_leftTriggerAxis.get(), robot.climberCurrent,
 				robot.climber.getVoltageOutput());
 	}
+	
+	private PositionEstimatorSystem setUpEstimator(Supplier<GearIntakeSystem.State> gearState) {
+		return new PositionEstimatorSystem(gearState, robot.flPos, robot.frPos, 
+				 robot.leftSpeed, robot.rightSpeed, 
+				 new RobotState(), new AngleIn<Position>(Position.class ,() -> robot.gyroInput.get()), 
+				 RobotConstants.Kinematics);
+	}
+	
 
 	public void periodic() {
 		manager.update();

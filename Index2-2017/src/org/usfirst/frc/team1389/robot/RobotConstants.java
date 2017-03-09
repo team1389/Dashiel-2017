@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1389.robot;
 
+import com.team1389.trajectory.Kinematics;
+
 public class RobotConstants {
 	public static final double INCHES_TO_METERS = .0254;
 
@@ -14,6 +16,8 @@ public class RobotConstants {
 	public static final double TrackWidth = 22; // in
 	public static final double TrackLength = 23;
 	public static final double TrackScrub = 1;
+	public static final Kinematics Kinematics = new Kinematics(TrackWidth, TrackLength, TrackScrub);
+
 
 	/**
 	 * constants for motion profiling

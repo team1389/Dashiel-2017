@@ -24,6 +24,8 @@ public class RobotSoftware extends RobotHardware {
 	public RangeIn<Value> climberCurrent;
 	public RangeIn<Position> flPos, frPos;
 	public OhmThreadService threadManager;
+	public RangeIn<Speed> rightSpeed;
+	public RangeIn<Speed> leftSpeed;
 
 	public static RobotSoftware getInstance() {
 		return INSTANCE;
@@ -46,6 +48,8 @@ public class RobotSoftware extends RobotHardware {
 					.mapToRange(0, 1);
 		 flPos = posFunc.apply(rearLeft.getPositionInput());
 		 frPos = posFunc.apply(rearRight.getPositionInput());
+		 leftSpeed = frontLeft.getSpeedInput().mapToRange(0, 1).scale(RobotConstants.WheelDiameter * Math.PI);
+		 rightSpeed = frontRight.getSpeedInput().mapToRange(0, 1).scale(RobotConstants.WheelDiameter * Math.PI);
 		 threadManager = new OhmThreadService(20);
 	}
 
