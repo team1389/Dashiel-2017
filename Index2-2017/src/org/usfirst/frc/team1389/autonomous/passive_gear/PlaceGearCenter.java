@@ -25,7 +25,8 @@ public class PlaceGearCenter extends AutoModeBase {
 
 	@Override
 	protected void routine() throws AutoModeEndedException {
-		runCommand(CommandUtil.combineSequential(commands.new DriveStraight(-AutoConstants.CENTER_GEAR_DIST)));
+		System.out.println("running gear to center");
+		runCommand(commands.new DriveStraight(10));
 	}
 
 	@Override
