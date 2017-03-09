@@ -1,21 +1,13 @@
 package org.usfirst.frc.team1389.operation;
 
-import java.util.function.Supplier;
-
 import org.usfirst.frc.team1389.robot.RobotSoftware;
 import org.usfirst.frc.team1389.robot.controls.ControlBoard;
-import org.usfirst.frc.team1389.systems.BallIntakeSystem;
-import org.usfirst.frc.team1389.systems.CameraSystem;
-import org.usfirst.frc.team1389.systems.ClimberSystem;
-import org.usfirst.frc.team1389.systems.FancyLightSystem;
-import org.usfirst.frc.team1389.systems.GearIntakeSystem;
-import org.usfirst.frc.team1389.systems.OctoMecanumSystem;
-import org.usfirst.frc.team1389.systems.TeleopGearIntakeSystem;
 import org.usfirst.frc.team1389.watchers.DebugDash;
 
 //import com.ctre.CANTalon.FeedbackDevice;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
+import com.team1389.system.drive.CurvatureDriveSystem;
 
 public class TeleopMain {
 	SystemManager manager;
@@ -31,19 +23,23 @@ public class TeleopMain {
 		//GearIntakeSystem gearIntake = setupGearIntake();
 		Subsystem drive = setupDrive();
 		//Subsystem ballIntake = setUpBallIntake(() -> gearIntake.getState());
-		Subsystem climbing = setUpClimbing();
-		Subsystem cameraSystem = new CameraSystem(controls.i_right_trigger.get());
+		//Subsystem climbing = setUpClimbing();
+		//Subsystem cameraSystem = new CameraSystem(controls.i_right_trigger.get());
 		manager = new SystemManager(drive);
 		manager.init();
-		DebugDash.getInstance().watch(
-				manager.getSystemWatchables().put(robot.armElevator.getAbsoluteIn().getWatchable("absolute pos"),
-						robot.pdp.getCurrentIn().getWatchable("total")));
+		//DebugDash.getInstance().watch(
+				/*manager.getSystemWatchables().put(robot.armElevator.getAbsoluteIn().getWatchable("absolute pos"),
+						robot.pdp.getCurrentIn().getWatchable("total")));*/
+				
 	}
 
-	private Subsystem setupDrive() {
+	/*private Subsystem setupDrive() {
 		return new OctoMecanumSystem(robot.voltageDrive, robot.pistons, robot.gyroInput, controls.i_xAxis.get(),
 				controls.i_yAxis.get(), controls.twistAxis, controls.trimAxis, controls.i_thumb.get(),
 				controls.i_trigger.get());
+	}*/
+	private Subsystem setupDrive(){
+		return new CurvatureDriveSystem(robot.voltageDrive.front, controls.i_xAxis.get(), controls.i_yAxis.get(), controls.i_trigger.get());
 	}
 
 //	private GearIntakeSystem setupGearIntake() {
@@ -56,14 +52,14 @@ public class TeleopMain {
 //		return Supplier;
 //	}
 
-	private Subsystem setUpBallIntake(Supplier<GearIntakeSystem.State> state) {
+	/*private Subsystem setUpBallIntake(Supplier<GearIntakeSystem.State> state) {
 		return new BallIntakeSystem(controls.rightBumper, state, robot.ballIntake.getVoltageOutput());
-	}
+	}*/
 
-	private ClimberSystem setUpClimbing() {
+	/*private ClimberSystem setUpClimbing() {
 		return new ClimberSystem(controls.i_leftTriggerAxis.get(), robot.climberCurrent,
 				robot.climber.getVoltageOutput());
-	}
+	}*/
 
 	public void periodic() {
 		manager.update();

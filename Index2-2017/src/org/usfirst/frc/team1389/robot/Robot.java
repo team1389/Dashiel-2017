@@ -4,6 +4,7 @@ package org.usfirst.frc.team1389.robot;
 import org.usfirst.frc.team1389.operation.TeleopMain;
 import org.usfirst.frc.team1389.watchers.DashboardInput;
 import org.usfirst.frc.team1389.watchers.DebugDash;
+import org.usfirst.frc.team1389.watchers.WebDashWatcher;
 
 import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeExecuter;
@@ -20,6 +21,7 @@ public class Robot extends IterativeRobot {
 	RobotSoftware robot;
 	TeleopMain teleOperator;
 	AutoModeExecuter autoModeExecuter;
+	WebDashWatcher dashWatcher;
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -33,6 +35,8 @@ public class Robot extends IterativeRobot {
 		autoModeExecuter = new AutoModeExecuter();
 		DebugDash.getInstance().watch(robot.rearLeft.getPositionInput().getWatchable("Left encoder"),
 				robot.rearRight.getPositionInput().getWatchable("Right encoder"),robot.gyro.getAngleInput().getWatchable("gyro"));
+		dashWatcher = new WebDashWatcher();
+		dashWatcher.init();
 	}
 
 	@Override
@@ -74,6 +78,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		teleOperator.periodic();
+	dashWatcher.update();
 	}
 
 	/**

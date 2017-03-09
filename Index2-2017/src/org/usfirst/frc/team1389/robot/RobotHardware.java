@@ -25,30 +25,30 @@ public class RobotHardware extends RobotLayout {
 	protected RobotHardware() {
 		registry = new Registry();
 		pdp = new PDPHardware(new CAN(0), registry);
-		ballIntake = new VictorHardware(inv_BALL_INTAKE_MOTOR, pwm_BALL_INTAKE_MOTOR, registry);
-		climber = new VictorHardware(inv_CLIMBER_MOTOR, pwm_CLIMBER_MOTOR, registry);
+		//ballIntake = new VictorHardware(inv_BALL_INTAKE_MOTOR, pwm_BALL_INTAKE_MOTOR, registry);
+		//climber = new VictorHardware(inv_CLIMBER_MOTOR, pwm_CLIMBER_MOTOR, registry);
 		gyro = new GyroHardware<>(GyroHardware.ADXRS_450,spi_GyroPort, registry);
 		initDriveTrain();
-		initDriveTrainPneumatics();
-		initGearIntake();
+		//initDriveTrainPneumatics();
+		//initGearIntake();
 	}
 
-	private void initGearIntake() {
+	/*private void initGearIntake() {
 		armElevator = new CANTalonHardware(inv_ARM_ELEVATOR_MOTOR, sinv_ARM_ELEVATOR_MOTOR, can_ARM_ELEVATOR_MOTOR,
 				registry);
-		gearIntake = new VictorHardware(inv_GEAR_INTAKE_MOTOR, pwm_GEAR_INTAKE_MOTOR, registry);
-	}
+		//gearIntake = new VictorHardware(inv_GEAR_INTAKE_MOTOR, pwm_GEAR_INTAKE_MOTOR, registry);
+	}*/
 
 	public Registry getRegistry() {
 		return registry;
 	}
 
-	private void initDriveTrainPneumatics() {
+	/*private void initDriveTrainPneumatics() {
 		flPiston = new DoubleSolenoidHardware(pcm_FRONT_LEFT_PISTON_A, pcm_FRONT_LEFT_PISTON_B, registry);
 		frPiston = new DoubleSolenoidHardware(pcm_FRONT_RIGHT_PISTON_A, pcm_FRONT_RIGHT_PISTON_B, registry);
 		rlPiston = new DoubleSolenoidHardware(pcm_REAR_LEFT_PISTON_A, pcm_REAR_LEFT_PISTON_B, registry);
 		rrPiston = new DoubleSolenoidHardware(pcm_REAR_RIGHT_PISTON_A, pcm_REAR_RIGHT_PISTON_B, registry);
-	}
+	}*/
 
 	private void initDriveTrain() {
 		frontLeft = new CANTalonHardware(inv_LEFT_FRONT_MOTOR, sinv_LEFT_FRONT_MOTOR, can_LEFT_FRONT_MOTOR, registry);

@@ -28,7 +28,7 @@ public class CrossBaseline extends AutoModeBase {
 	}
 
 	@Override
-	public String getIdentifier() {
+	public String getName() {
 		return "Cross Baseline";
 	}
 

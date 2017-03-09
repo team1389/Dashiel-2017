@@ -29,7 +29,7 @@ public class PlaceGearCenter extends AutoModeBase {
 	}
 
 	@Override
-	public String getIdentifier() {
+	public String getName() {
 		return "Passive Place Gear Left";
 	}
 }

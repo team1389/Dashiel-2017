@@ -42,19 +42,19 @@ public class RobotMap {
 	protected final CAN can_ARM_ELEVATOR_MOTOR = new CAN(7); protected final boolean inv_ARM_ELEVATOR_MOTOR = false;
 	protected final SPIPort spi_GyroPort = new SPIPort(SPI.Port.kOnboardCS0);
 	protected final boolean sinv_ARM_ELEVATOR_MOTOR = false;
-	protected final PWM pwm_GEAR_INTAKE_MOTOR = new PWM(1); protected final boolean inv_GEAR_INTAKE_MOTOR = true;
-	protected final PWM pwm_BALL_INTAKE_MOTOR = new PWM(5); protected final boolean inv_BALL_INTAKE_MOTOR = false;
-	protected final PCM pcm_FRONT_LEFT_PISTON_A = new PCM(7);
+	//protected final PWM pwm_GEAR_INTAKE_MOTOR = new PWM(1); protected final boolean inv_GEAR_INTAKE_MOTOR = true;
+	//protected final PWM pwm_BALL_INTAKE_MOTOR = new PWM(5); protected final boolean inv_BALL_INTAKE_MOTOR = false;
+	/*protected final PCM pcm_FRONT_LEFT_PISTON_A = new PCM(7);
 	protected final PCM pcm_FRONT_LEFT_PISTON_B = new PCM(0);
 	protected final PCM pcm_FRONT_RIGHT_PISTON_A = new PCM(4);
 	protected final PCM pcm_FRONT_RIGHT_PISTON_B = new PCM(3);
 	protected final PCM pcm_REAR_LEFT_PISTON_A = new PCM(6);
 	protected final PCM pcm_REAR_LEFT_PISTON_B = new PCM(1);
 	protected final PCM pcm_REAR_RIGHT_PISTON_A = new PCM(5);
-	protected final PCM pcm_REAR_RIGHT_PISTON_B = new PCM(2);
+	protected final PCM pcm_REAR_RIGHT_PISTON_B = new PCM(2);*/
 	protected final int mod_DRIVE_TRAIN_PCM = 1;
 	protected final int mod_HOPPER_PCM = 2;
 	protected final int pdp_GEAR_INTAKE_CURRENT = 4;
 	protected final int pdp_Climber_Val = 0;
-	protected final PWM pwm_CLIMBER_MOTOR = new PWM(2); protected final boolean inv_CLIMBER_MOTOR = false;
+	//protected final PWM pwm_CLIMBER_MOTOR = new PWM(2); protected final boolean inv_CLIMBER_MOTOR = false;
 	protected final CAN can_LIGHT_CONTROLLER = new CAN(8);}
