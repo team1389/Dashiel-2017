@@ -5,7 +5,7 @@ import com.team1389.trajectory.Kinematics;
 public class RobotConstants {
 	public static final double INCHES_TO_METERS = .0254;
 
-	public static final double WheelDiameter = 8; // in
+	public static final double WheelDiameter = 4; // in
 	
 	public static final int armAbsoluteMin = 2093;
 	public static final int armAbsoluteMax = 4390;

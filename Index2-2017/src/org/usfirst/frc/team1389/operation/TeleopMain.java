@@ -43,7 +43,7 @@ public class TeleopMain {
 		manager.init();
 		DebugDash.getInstance().watch(
 				manager.getSystemWatchables().put(robot.armElevator.getAbsoluteIn().getWatchable("absolute pos"),
-						robot.pdp.getCurrentIn().getWatchable("total")));
+						robot.pdp.getCurrentIn().getWatchable("total"), estimator));
 	}
 
 	private Subsystem setupDrive() {
@@ -72,9 +72,9 @@ public class TeleopMain {
 	}
 	
 	private PositionEstimatorSystem setUpEstimator(Supplier<GearIntakeSystem.State> gearState) {
-		return new PositionEstimatorSystem(gearState, robot.flPos, robot.frPos, 
+		return new PositionEstimatorSystem(gearState, robot.lPosInches, robot.rPosInches, 
 				 robot.leftSpeed, robot.rightSpeed, 
-				 new RobotState(), new AngleIn<Position>(Position.class ,() -> robot.gyroInput.get()), 
+				 new RobotState(), new AngleIn<Position>(Position.class ,() -> robot.gyroInput.get() * 180 / Math.PI), 
 				 RobotConstants.Kinematics);
 	}
 	

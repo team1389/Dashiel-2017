@@ -26,6 +26,8 @@ public class RobotSoftware extends RobotHardware {
 	public OhmThreadService threadManager;
 	public RangeIn<Speed> rightSpeed;
 	public RangeIn<Speed> leftSpeed;
+	public RangeIn<Position> lPosInches;
+	public RangeIn<Position> rPosInches;
 
 	public static RobotSoftware getInstance() {
 		return INSTANCE;
@@ -48,6 +50,8 @@ public class RobotSoftware extends RobotHardware {
 					.mapToRange(0, 1);
 		 flPos = posFunc.apply(rearLeft.getPositionInput());
 		 frPos = posFunc.apply(rearRight.getPositionInput());
+		 lPosInches = flPos.copy().scale(RobotConstants.WheelDiameter * Math.PI);
+		 rPosInches = frPos.copy().scale(RobotConstants.WheelDiameter * Math.PI);
 		 leftSpeed = frontLeft.getSpeedInput().mapToRange(0, 1).scale(RobotConstants.WheelDiameter * Math.PI);
 		 rightSpeed = frontRight.getSpeedInput().mapToRange(0, 1).scale(RobotConstants.WheelDiameter * Math.PI);
 		 threadManager = new OhmThreadService(20);
