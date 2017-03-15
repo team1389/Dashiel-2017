@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1389.autonomous.passive_gear;
 
-import org.usfirst.frc.team1389.autonomous.AutoConstants;
+import org.usfirst.frc.team1389.autonomous.AutoModeConstants;
 import org.usfirst.frc.team1389.autonomous.command.RobotCommands;
 import org.usfirst.frc.team1389.robot.RobotSoftware;
 
@@ -26,9 +26,9 @@ public class PlaceGearLeft extends AutoModeBase {
 	@Override
 	protected void routine() throws AutoModeEndedException {
 		runCommand(CommandUtil.combineSequential(
-				commands.new DriveStraight(-AutoConstants.SIDE_GEAR_STRAIGHT),
-				commands.new TurnAngle(-AutoConstants.SIDE_GEAR_TURN, true),
-				commands.new DriveStraight(-AutoConstants.SIDE_GEAR_APPROACH)));
+				commands.new DriveStraight(-AutoModeConstants.SIDE_GEAR_STRAIGHT),
+				commands.new TurnAngle(-AutoModeConstants.SIDE_GEAR_TURN, true),
+				commands.new DriveStraight(-AutoModeConstants.SIDE_GEAR_APPROACH)));
 	}
 
 	@Override

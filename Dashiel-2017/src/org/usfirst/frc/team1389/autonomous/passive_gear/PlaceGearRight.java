@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1389.autonomous.passive_gear;
 
 import org.omg.Messaging.SyncScopeHelper;
-import org.usfirst.frc.team1389.autonomous.AutoConstants;
+import org.usfirst.frc.team1389.autonomous.AutoModeConstants;
 import org.usfirst.frc.team1389.autonomous.command.RobotCommands;
 import org.usfirst.frc.team1389.autonomous.command.RobotCommands.DriveStraight;
 import org.usfirst.frc.team1389.autonomous.command.RobotCommands.TurnAngle;

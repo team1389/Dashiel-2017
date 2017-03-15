@@ -1,16 +1,13 @@
 package org.usfirst.frc.team1389.autonomous;
 
 import org.usfirst.frc.team1389.autonomous.command.RobotCommands;
-import org.usfirst.frc.team1389.autonomous.command.RobotCommands.DriveStraight;
-import org.usfirst.frc.team1389.autonomous.command.RobotCommands.TurnAngle;
 import org.usfirst.frc.team1389.robot.RobotSoftware;
 
-import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeEndedException;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
 
-public class CrossBaseline extends AutoModeBase {
+public class CrossBaseline extends AutoModeConstants {
 	RobotSoftware robot;
 	RobotCommands commands;
 
@@ -26,11 +23,9 @@ public class CrossBaseline extends AutoModeBase {
 
 	@Override
 	protected void routine() throws AutoModeEndedException {
-		System.out.println("driving first");
-		runCommand(commands.new DriveStraight(3*12/(4*Math.PI),5));
-		System.out.println("turning");
-		runCommand(commands.new TurnAngle(45, true));
-		runCommand(commands.new DriveStraight(2*12/(4*Math.PI),5));
+		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_STRAIGHT), 5));
+		runCommand(commands.new TurnAngle(SIDE_GEAR_TURN, true));
+		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_APPROACH), 5));
 	}
 
 	@Override
