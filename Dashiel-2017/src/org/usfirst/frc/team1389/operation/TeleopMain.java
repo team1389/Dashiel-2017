@@ -7,10 +7,8 @@ import org.usfirst.frc.team1389.robot.controls.ControlBoard;
 import org.usfirst.frc.team1389.systems.BallIntakeSystem;
 import org.usfirst.frc.team1389.systems.CameraSystem;
 import org.usfirst.frc.team1389.systems.ClimberSystem;
-import org.usfirst.frc.team1389.systems.FancyLightSystem;
 import org.usfirst.frc.team1389.systems.GearIntakeSystem;
 import org.usfirst.frc.team1389.systems.OctoMecanumSystem;
-import org.usfirst.frc.team1389.systems.TeleopGearIntakeSystem;
 import org.usfirst.frc.team1389.watchers.DebugDash;
 
 //import com.ctre.CANTalon.FeedbackDevice;
@@ -28,16 +26,18 @@ public class TeleopMain {
 
 	public void init() {
 		controls = ControlBoard.getInstance();
-		//GearIntakeSystem gearIntake = setupGearIntake();
+		// GearIntakeSystem gearIntake = setupGearIntake();
 		Subsystem drive = setupDrive();
-		//Subsystem ballIntake = setUpBallIntake(() -> gearIntake.getState());
+		// Subsystem ballIntake = setUpBallIntake(() -> gearIntake.getState());
 		Subsystem climbing = setUpClimbing();
 		Subsystem cameraSystem = new CameraSystem(controls.i_right_trigger.get());
 		manager = new SystemManager(drive);
 		manager.init();
 		DebugDash.getInstance().watch(
 				manager.getSystemWatchables().put(robot.armElevator.getAbsoluteIn().getWatchable("absolute pos"),
-						robot.pdp.getCurrentIn().getWatchable("total")));
+						robot.pdp.getCurrentIn().getWatchable("total"),
+						robot.rearLeft.getPositionInput().getWatchable("Left encoder"),
+						robot.rearRight.getPositionInput().getWatchable("Right encoder")));
 	}
 
 	private Subsystem setupDrive() {
@@ -46,15 +46,17 @@ public class TeleopMain {
 				controls.i_trigger.get());
 	}
 
-//	private GearIntakeSystem setupGearIntake() {
-//
-//		TeleopGearIntakeSystem Supplier = new TeleopGearIntakeSystem(robot.armAngle, robot.armVel,
-//				robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(), robot.gearIntakeCurrent,
-//				controls.i_aButton.get(), controls.i_yButton.get(), controls.i_xButton.get(), controls.i_bButton.get(),
-//				controls.i_leftVertAxis.get(),
-//				robot.armElevator.getSensorTracker(FeedbackDevice.CtreMagEncoder_Absolute).invert());
-//		return Supplier;
-//	}
+	// private GearIntakeSystem setupGearIntake() {
+	//
+	// TeleopGearIntakeSystem Supplier = new TeleopGearIntakeSystem(robot.armAngle, robot.armVel,
+	// robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(),
+	// robot.gearIntakeCurrent,
+	// controls.i_aButton.get(), controls.i_yButton.get(), controls.i_xButton.get(),
+	// controls.i_bButton.get(),
+	// controls.i_leftVertAxis.get(),
+	// robot.armElevator.getSensorTracker(FeedbackDevice.CtreMagEncoder_Absolute).invert());
+	// return Supplier;
+	// }
 
 	private Subsystem setUpBallIntake(Supplier<GearIntakeSystem.State> state) {
 		return new BallIntakeSystem(controls.rightBumper, state, robot.ballIntake.getVoltageOutput());
@@ -69,5 +71,5 @@ public class TeleopMain {
 		manager.update();
 
 	}
-	
+
 }

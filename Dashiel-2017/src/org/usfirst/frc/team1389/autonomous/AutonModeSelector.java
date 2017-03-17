@@ -11,7 +11,7 @@ public class AutonModeSelector {
 	public static AutoModeBase createAutoMode(AutonOption autonOption) {
 		switch (autonOption) {
 		case CROSS_BASELINE:
-			return new CrossBaseline(RobotSoftware.getInstance());
+			return new AutoDropOffGear(RobotSoftware.getInstance());
 		case PLACE_GEAR_LEFT_PASSIVE:
 			return new PlaceGearLeft(RobotSoftware.getInstance());
 		case PLACE_GEAR_RIGHT_PASSIVE:

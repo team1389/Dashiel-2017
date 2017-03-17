@@ -34,14 +34,20 @@ public class Robot extends IterativeRobot {
 		DebugDash.getInstance().watch(robot.rearLeft.getPositionInput().getWatchable("Left encoder"),
 				robot.rearRight.getPositionInput().getWatchable("Right encoder"),
 				robot.gyro.getAngleInput().getWatchable("gyro"));
+		System.out.println("STARTING GYRO CALIBRATION");
+		robot.gyro.calibrate();
+		System.out.println("CALIBRATION FINISHED");
 	}
 
 	@Override
 	public void autonomousInit() {
+		System.out.println("autonomous enabled");
 		robot.threadManager.init();
 		autoModeExecuter.stop();
+		System.out.println("checking dashboard for auto");
 		AutoModeBase selectedAutonMode = DashboardInput.getInstance().getSelectedAutonMode();
 		autoModeExecuter.setAutoMode(selectedAutonMode);
+		System.out.println("running selected auto mode");
 		robot.threadManager.borrowThreadToRun(autoModeExecuter);
 	}
 
@@ -59,7 +65,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		robot.gyro.calibrate();
 	}
 
 	@Override
