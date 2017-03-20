@@ -20,8 +20,8 @@ public class RobotCommands {
 		}
 
 		public DriveStraight(double distance, double speed) {
-			super(new PIDConstants(1, .1, 1),new PIDConstants(.2,0,.01), robot.voltageDrive.getAsTank(), robot.flPos, robot.frPos,
-					robot.gyroInput.copy().invert(), distance, 10, 10, speed, .5);
+			super(new PIDConstants(.4, .09, 3.7),new PIDConstants(.1,0,.01), robot.voltageDrive.getAsTank(), robot.flPos, robot.frPos,
+					robot.gyroInput.copy().invert(), distance, 10, 10, speed, 0);
 		}
 	}
 

@@ -23,11 +23,10 @@ public class CrossBaseline extends AutoModeConstants {
 
 	@Override
 	protected void routine() throws AutoModeEndedException {
-		robot.gyro.reset();
-		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_STRAIGHT), 5));
+		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_STRAIGHT), 3));
 		System.out.println("turn time");
-		runCommand(commands.new TurnAngle(SIDE_GEAR_TURN, true));
-		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_APPROACH), 1.5));
+	//	runCommand(commands.new TurnAngle(SIDE_GEAR_TURN, true));
+		//runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_APPROACH), 3));
 	}
 
 	@Override

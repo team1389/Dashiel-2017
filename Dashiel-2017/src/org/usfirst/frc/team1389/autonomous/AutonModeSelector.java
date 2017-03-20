@@ -20,7 +20,7 @@ public class AutonModeSelector {
 			return new PlaceGearCenter(RobotSoftware.getInstance());
 		default:
 			System.out.println("ERROR: unexpected auto mode: " + autonOption);
-			return null;
+			return new AutoDropOffGear(RobotSoftware.getInstance());
 		}
 	}
 }
