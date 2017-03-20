@@ -20,8 +20,8 @@ public class RobotCommands {
 		}
 
 		public DriveStraight(double distance, double speed) {
-			super(new PIDConstants(1, .03, .02),new PIDConstants(.2,0,.01), robot.voltageDrive.getAsTank(), robot.flPos, robot.frPos,
-					robot.gyroInput.copy().invert(), distance, 2, 2, speed, .05);
+			super(new PIDConstants(1, .1, 1),new PIDConstants(.2,0,.01), robot.voltageDrive.getAsTank(), robot.flPos, robot.frPos,
+					robot.gyroInput.copy().invert(), distance, 10, 10, speed, .5);
 		}
 	}
 
@@ -30,7 +30,7 @@ public class RobotCommands {
 		public TurnAngle(double angle, boolean absolute) {
 			super(angle, absolute, 2, robot.gyro.getAngleInput(),
 					TurnAngleCommand.createTurnController(robot.voltageDrive.getAsTank()),
-					new PIDConstants(0.05, .001, .5));
+					new PIDConstants(0.06, .001, .75));
 		}
 
 	}

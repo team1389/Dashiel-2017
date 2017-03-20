@@ -44,8 +44,8 @@ public class RobotSoftware extends RobotHardware {
 		 gearIntakeCurrent = pdp.getCurrentIn(pdp_GEAR_INTAKE_CURRENT);
 		 Function<PositionEncoderIn,RangeIn<Position>> posFunc = e -> e.<PositionEncoderIn>setTicksPerRotation(1024)
 					.mapToRange(0, 1);
-		 flPos = posFunc.apply(rearLeft.getPositionInput());
-		 frPos = posFunc.apply(rearRight.getPositionInput());
+		 flPos = rearLeft.getPositionInput().adjustRange(0, 1024, 0, 1);
+		 frPos = rearRight.getPositionInput().adjustRange(0, 1024, 0, 1);
 		 threadManager = new OhmThreadService(20);
 	}
 

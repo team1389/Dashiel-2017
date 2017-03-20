@@ -3,7 +3,7 @@ package org.usfirst.frc.team1389.robot;
 public class RobotConstants {
 	public static final double INCHES_TO_METERS = .0254;
 
-	public static final double WheelDiameter = 8; // in
+	public static final double WheelDiameter = 4; // in
 	
 	public static final int armAbsoluteMin = 2093;
 	public static final int armAbsoluteMax = 4390;

@@ -18,14 +18,16 @@ public class CrossBaseline extends AutoModeConstants {
 
 	@Override
 	public AddList<Watchable> getSubWatchables(AddList<Watchable> stem) {
-		return stem.put(robot.voltageDrive);
+		return stem.put(robot.voltageDrive,robot.flPos.getWatchable("lpos"));
 	}
 
 	@Override
 	protected void routine() throws AutoModeEndedException {
+		robot.gyro.reset();
 		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_STRAIGHT), 5));
+		System.out.println("turn time");
 		runCommand(commands.new TurnAngle(SIDE_GEAR_TURN, true));
-		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_APPROACH), 5));
+		runCommand(commands.new DriveStraight(getRotations(SIDE_GEAR_APPROACH), 1.5));
 	}
 
 	@Override

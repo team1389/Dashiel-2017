@@ -7,6 +7,7 @@ import org.usfirst.frc.team1389.watchers.DebugDash;
 
 import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeExecuter;
+import com.team1389.watch.Watcher;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -41,13 +42,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		System.out.println("autonomous enabled");
 		robot.threadManager.init();
 		autoModeExecuter.stop();
-		System.out.println("checking dashboard for auto");
 		AutoModeBase selectedAutonMode = DashboardInput.getInstance().getSelectedAutonMode();
 		autoModeExecuter.setAutoMode(selectedAutonMode);
-		System.out.println("running selected auto mode");
+		DebugDash.getInstance().watch(selectedAutonMode);
 		robot.threadManager.borrowThreadToRun(autoModeExecuter);
 	}
 
