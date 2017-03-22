@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import org.usfirst.frc.team1389.robot.RobotSoftware;
 import org.usfirst.frc.team1389.robot.controls.ControlBoard;
 import org.usfirst.frc.team1389.systems.BallIntakeSystem;
-import org.usfirst.frc.team1389.systems.CameraSystem;
 import org.usfirst.frc.team1389.systems.ClimberSystem;
 import org.usfirst.frc.team1389.systems.GearIntakeSystem;
 import org.usfirst.frc.team1389.systems.OctoMecanumSystem;
@@ -30,7 +29,6 @@ public class TeleopMain {
 		Subsystem drive = setupDrive();
 		// Subsystem ballIntake = setUpBallIntake(() -> gearIntake.getState());
 		Subsystem climbing = setUpClimbing();
-		Subsystem cameraSystem = new CameraSystem(controls.i_right_trigger.get());
 		manager = new SystemManager(drive);
 		manager.init();
 		DebugDash.getInstance().watch(
@@ -41,9 +39,9 @@ public class TeleopMain {
 	}
 
 	private Subsystem setupDrive() {
-		return new OctoMecanumSystem(robot.voltageDrive, robot.pistons, robot.gyroInput, controls.i_xAxis.get(),
-				controls.i_yAxis.get(), controls.twistAxis, controls.trimAxis, controls.i_thumb.get(),
-				controls.i_trigger.get());
+		return new OctoMecanumSystem(robot.voltageDrive, robot.pistons, robot.gyroInput, controls.driveXAxis(),
+				controls.driveYAxis(), controls.driveYaw(), controls.driveTrim(), controls.driveModeBtn(),
+				controls.driveModifierBtn());
 	}
 
 	// private GearIntakeSystem setupGearIntake() {
@@ -59,12 +57,11 @@ public class TeleopMain {
 	// }
 
 	private Subsystem setUpBallIntake(Supplier<GearIntakeSystem.State> state) {
-		return new BallIntakeSystem(controls.rightBumper, state, robot.ballIntake.getVoltageOutput());
+		return new BallIntakeSystem(controls.ballIntakeBtn(), state, robot.ballIntake.getVoltageOutput());
 	}
 
 	private ClimberSystem setUpClimbing() {
-		return new ClimberSystem(controls.i_leftTriggerAxis.get(), robot.climberCurrent,
-				robot.climber.getVoltageOutput());
+		return new ClimberSystem(controls.climberThrottle(), robot.climberCurrent, robot.climber.getVoltageOutput());
 	}
 
 	public void periodic() {

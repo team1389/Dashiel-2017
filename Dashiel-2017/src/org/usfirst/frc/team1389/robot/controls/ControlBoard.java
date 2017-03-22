@@ -1,8 +1,7 @@
 package org.usfirst.frc.team1389.robot.controls;
 
-import java.util.function.Supplier;
-
-import com.team1389.hardware.inputs.hardware.JoystickHardware;
+import com.team1389.hardware.inputs.controllers.LogitechExtreme3D;
+import com.team1389.hardware.inputs.controllers.XBoxController;
 import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.PercentIn;
 
@@ -24,52 +23,55 @@ public class ControlBoard extends ControlMap {
 	private ControlBoard() {
 	}
 
-	private final JoystickHardware driveController = new JoystickHardware(DRIVE_CONTROLLER);
-	private final JoystickHardware manipController = new JoystickHardware(MANIP_CONTROLLER);
+	private final LogitechExtreme3D driveController = new LogitechExtreme3D(DRIVE_CONTROLLER);
+	private final XBoxController manipController = new XBoxController(MANIP_CONTROLLER);
 
-	// DRIVER CONTROLS
-	private PercentIn yAxis = driveController.getAxis(ax_Y_AXIS).applyDeadband(.075).invert();
-	public Supplier<PercentIn> i_yAxis = yAxis::copy;
+	public PercentIn driveYAxis() {
+		return driveController.yAxis().applyDeadband(.075).invert();
+	}
 
-	private PercentIn xAxis = driveController.getAxis(ax_X_AXIS).applyDeadband(.075);
-	public Supplier<PercentIn> i_xAxis = xAxis::copy;
+	public PercentIn driveXAxis() {
+		return driveController.xAxis().applyDeadband(.075);
+	}
 
-	public PercentIn twistAxis = driveController.getAxis(ax_TWIST_AXIS).applyDeadband(.075);
-	public Supplier<PercentIn> i_twistAxis = twistAxis::copy;
+	public PercentIn driveYaw() {
+		return driveController.yaw().applyDeadband(.075);
+	}
 
-	public PercentIn trimAxis = driveController.getAxis(ax_TRIM_AXIS).applyDeadband(.075);
-	public Supplier<PercentIn> i_trimAxis = trimAxis::copy;
+	public PercentIn driveTrim() {
+		return driveController.throttle();
+	}
 
-	public DigitalIn trigger = driveController.getButton(btn_TRIGGER);
-	public Supplier<DigitalIn> i_trigger = trigger::copy;
-	
-	public DigitalIn rightTrigger = driveController.getButton(btn_RIGHT_TRIGGER);
-	public Supplier<DigitalIn> i_right_trigger = rightTrigger::copy;
+	public DigitalIn driveModeBtn() {
+		return driveController.thumbButton().latched();
+	}
 
-	public DigitalIn thumb = driveController.getButton(btn_THUMB).latched();
-	public Supplier<DigitalIn> i_thumb = thumb::copy;
+	public DigitalIn driveModifierBtn() {
+		return driveController.trigger();
+	}
 
-	public DigitalIn aButton = manipController.getButton(btn_A).latched();
-	public Supplier<DigitalIn> i_aButton = aButton::copy;
+	public DigitalIn intakeGearBtn() {
+		return manipController.aButton().latched();
+	}
 
-	public DigitalIn yButton = manipController.getButton(btn_Y).latched();
-	public Supplier<DigitalIn> i_yButton = yButton::copy;
+	public DigitalIn stowArmBtn() {
+		return manipController.yButton().latched();
+	}
 
-	public DigitalIn xButton = manipController.getButton(btn_X).latched();
-	public Supplier<DigitalIn> i_xButton = xButton::copy;
+	public DigitalIn placeGearBtn() {
+		return manipController.xButton().latched();
+	}
 
-	public DigitalIn bButton = manipController.getButton(btn_B).latched();
-	public Supplier<DigitalIn> i_bButton = bButton::copy;
+	public PercentIn climberThrottle() {
+		return manipController.leftTrigger();
+	}
 
-	public DigitalIn leftBumper = manipController.getButton(btn_LEFT_BUMPER);
+	public PercentIn armAngleAxis() {
+		return manipController.leftStick.yAxis();
+	}
 
-	public DigitalIn rightBumper = manipController.getButton(btn_RIGHT_BUMPER).latched();
-	
-
-	public PercentIn leftTriggerAxis = manipController.getAxis(ax_LEFT_TRIGGER).applyDeadband(.075);
-	public Supplier<PercentIn> i_leftTriggerAxis = leftTriggerAxis::copy;
-
-	public PercentIn leftVertAxis = manipController.getAxis(ax_LEFT_VERT_AXIS).applyDeadband(.075);
-	public Supplier<PercentIn> i_leftVertAxis = leftVertAxis::copy;
+	public DigitalIn ballIntakeBtn() {
+		return manipController.rightBumper();
+	}
 
 }
