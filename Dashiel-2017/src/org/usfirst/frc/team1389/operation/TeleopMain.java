@@ -1,12 +1,7 @@
 package org.usfirst.frc.team1389.operation;
 
-import java.util.function.Supplier;
-
 import org.usfirst.frc.team1389.robot.RobotSoftware;
 import org.usfirst.frc.team1389.robot.controls.ControlBoard;
-import org.usfirst.frc.team1389.systems.BallIntakeSystem;
-import org.usfirst.frc.team1389.systems.ClimberSystem;
-import org.usfirst.frc.team1389.systems.GearIntakeSystem;
 import org.usfirst.frc.team1389.systems.OctoMecanumSystem;
 import org.usfirst.frc.team1389.watchers.DebugDash;
 
@@ -25,17 +20,14 @@ public class TeleopMain {
 
 	public void init() {
 		controls = ControlBoard.getInstance();
-		// GearIntakeSystem gearIntake = setupGearIntake();
 		Subsystem drive = setupDrive();
-		// Subsystem ballIntake = setUpBallIntake(() -> gearIntake.getState());
-		Subsystem climbing = setUpClimbing();
 		manager = new SystemManager(drive);
 		manager.init();
-		DebugDash.getInstance().watch(
-				manager.getSystemWatchables().put(robot.armElevator.getAbsoluteIn().getWatchable("absolute pos"),
-						robot.pdp.getCurrentIn().getWatchable("total"),
-						robot.rearLeft.getPositionInput().getWatchable("Left encoder"),
-						robot.rearRight.getPositionInput().getWatchable("Right encoder")));
+		DebugDash
+				.getInstance()
+					.watch(manager.getSystemWatchables().put(robot.armAngleNoOffset.getWatchable("zeroing angle"),
+							robot.rearLeft.getPositionInput().getWatchable("Left encoder"),
+							robot.rearRight.getPositionInput().getWatchable("Right encoder")));
 	}
 
 	private Subsystem setupDrive() {
@@ -55,14 +47,6 @@ public class TeleopMain {
 	// robot.armElevator.getSensorTracker(FeedbackDevice.CtreMagEncoder_Absolute).invert());
 	// return Supplier;
 	// }
-
-	private Subsystem setUpBallIntake(Supplier<GearIntakeSystem.State> state) {
-		return new BallIntakeSystem(controls.ballIntakeBtn(), state, robot.ballIntake.getVoltageOutput());
-	}
-
-	private ClimberSystem setUpClimbing() {
-		return new ClimberSystem(controls.climberThrottle(), robot.climberCurrent, robot.climber.getVoltageOutput());
-	}
 
 	public void periodic() {
 		manager.update();

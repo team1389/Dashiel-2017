@@ -7,8 +7,8 @@ import org.usfirst.frc.team1389.watchers.DebugDash;
 
 import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeExecuter;
-import com.team1389.watch.Watcher;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -28,6 +28,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		CameraServer.getInstance().startAutomaticCapture();
+		CameraServer.getInstance().addAxisCamera("10.13.89.86");
 		DashboardInput.getInstance().init();
 		robot = RobotSoftware.getInstance();
 		teleOperator = new TeleopMain(robot);

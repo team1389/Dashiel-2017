@@ -1,10 +1,7 @@
 package org.usfirst.frc.team1389.robot;
 
-import java.util.function.Function;
-
 import com.team1389.concurrent.OhmThreadService;
 import com.team1389.hardware.inputs.software.AngleIn;
-import com.team1389.hardware.inputs.software.PositionEncoderIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.DigitalOut;
 import com.team1389.hardware.value_types.Percent;
@@ -19,6 +16,7 @@ public class RobotSoftware extends RobotHardware {
 	public DigitalOut pistons;
 	public FourDriveOut<Percent> voltageDrive;
 	public AngleIn<Position> armAngle;
+	public AngleIn<Position> armAngleNoOffset;
 	public AngleIn<Speed> armVel;
 	public RangeIn<Value> gearIntakeCurrent;
 	public RangeIn<Value> climberCurrent;
@@ -30,23 +28,18 @@ public class RobotSoftware extends RobotHardware {
 	}
 
 	public RobotSoftware() {
-		 gyroInput = gyro.getAngleInput();
-		 pistons = flPiston.getDigitalOut().addFollowers(frPiston.getDigitalOut(),
-					rlPiston.getDigitalOut(), rrPiston.getDigitalOut(), new DigitalOut(System.out::println));
-		 voltageDrive = new FourDriveOut<>(frontLeft.getVoltageOutput(),
-					frontRight.getVoltageOutput(), rearLeft.getVoltageOutput(), rearRight.getVoltageOutput());
-		 armAngle = armElevator
-				.getAbsoluteIn()
-						.adjustRange(RobotConstants.armAbsoluteMin, RobotConstants.armAbsoluteMax, 0, 90)
-						.setRange(0, 360)
-						.mapToAngle(Position.class);
-		 armVel = armElevator.getSpeedInput().scale(28 / 12).mapToAngle(Speed.class);
-		 gearIntakeCurrent = pdp.getCurrentIn(pdp_GEAR_INTAKE_CURRENT);
-		 Function<PositionEncoderIn,RangeIn<Position>> posFunc = e -> e.<PositionEncoderIn>setTicksPerRotation(1024)
-					.mapToRange(0, 1);
-		 flPos = rearLeft.getPositionInput().adjustRange(0, 1024, 0, 1);
-		 frPos = rearRight.getPositionInput().adjustRange(0, 1024, 0, 1);
-		 threadManager = new OhmThreadService(20);
+		gyroInput = gyro.getAngleInput();
+		pistons = flPiston.getDigitalOut().addFollowers(frPiston.getDigitalOut(), rlPiston.getDigitalOut(),
+				rrPiston.getDigitalOut(), new DigitalOut(System.out::println));
+		voltageDrive = new FourDriveOut<>(frontLeft.getVoltageOutput(), frontRight.getVoltageOutput(),
+				rearLeft.getVoltageOutput(), rearRight.getVoltageOutput());
+		armAngleNoOffset = armElevator.getAbsoluteIn().mapToAngle(Position.class).invert().scale(12.0 / 28.0);
+		armAngle = armAngleNoOffset.copy().offset(-RobotConstants.armOffset);
+		armVel = armElevator.getSpeedInput().scale(28 / 12).mapToAngle(Speed.class);
+		gearIntakeCurrent = pdp.getCurrentIn(pdp_GEAR_INTAKE_CURRENT);
+		flPos = rearLeft.getPositionInput().adjustRange(0, 1024, 0, 1);
+		frPos = rearRight.getPositionInput().adjustRange(0, 1024, 0, 1);
+		threadManager = new OhmThreadService(20);
 	}
 
 }
