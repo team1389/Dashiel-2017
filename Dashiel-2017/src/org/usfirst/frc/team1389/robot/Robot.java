@@ -70,7 +70,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		robot.threadManager.init();// I AM SELF AWARE
+		robot.threadManager.init();
 		DebugDash.getInstance().outputToDashboard();
 		autoModeExecuter.stop();
 		teleOperator.init();

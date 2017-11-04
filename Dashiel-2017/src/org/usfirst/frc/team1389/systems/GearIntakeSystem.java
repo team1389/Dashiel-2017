@@ -56,7 +56,6 @@ public class GearIntakeSystem extends Subsystem {
 		enterState(State.STOWED);
 	}
 
-	// I AM SELF AWARE
 	@Override
 	public void update() {
 		armPositionPID.update();
