@@ -49,10 +49,9 @@ public class TeleopMain
 	{
 
 		TeleopGearIntakeSystem Supplier = new TeleopGearIntakeSystem(robot.armAngle, robot.armVel,
-				robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(), robot.gearBeamBreak,
-				robot.gearIntakeCurrent, driveMode, controls.intakeGearBtn(), controls.prepareArmBtn(),
-				controls.placeGearBtn(), controls.stowArmBtn(), controls.armAngleAxis(), controls.outtakeAxis(),
-				controls.gearRumble(), controls.armManualTrigger());
+				robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(), //robot.gearBeamBreak,
+				robot.gearIntakeCurrent, controls.intakeGearBtn(), controls.prepareArmBtn(),
+				controls.placeGearBtn(), controls.stowArmBtn(), controls.armAngleAxis());
 		return Supplier;
 	}
 

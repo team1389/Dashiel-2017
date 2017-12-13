@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Dashiel-2017/src"/>
+	<classpathentry kind="src" path="Index2-2017/src"/>
+	<classpathentry kind="lib" path="Dashiel-2017/dist/FRCUserProgram.jar"/>
+	<classpathentry kind="lib" path="Dashiel-2017/export/test.jar"/>
+	<classpathentry kind="lib" path="Dashiel-2017/lib/Pathfinder-Java.jar"/>
+	<classpathentry kind="lib" path="Dashiel-2017/lib/TalonSRXLibJava.jar"/>
+	<classpathentry kind="lib" path="Index2-2017/build/jars/test.jar"/>
+	<classpathentry kind="lib" path="Index2-2017/dist/FRCUserProgram.jar"/>
+	<classpathentry kind="lib" path="Index2-2017/export/test.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Ohm"/>
+	<classpathentry kind="lib" path="C:/Users/Kaveh/wpilib/java/current/lib/NetworkTables.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Kaveh/wpilib/java/current/lib/WPILib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Kaveh/wpilib/java/current/lib/opencv.jar"/>
+	<classpathentry kind="output" path="Dashiel-2017/build"/>
+</classpath>
