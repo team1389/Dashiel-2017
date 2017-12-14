@@ -3,7 +3,6 @@ package org.usfirst.frc.team1389.operation;
 import java.util.function.Supplier;
 
 import org.usfirst.frc.team1389.robot.RobotSoftware;
-import org.usfirst.frc.team1389.robot.controls.ControlBoard;
 import org.usfirst.frc.team1389.systems.GearIntakeSystem;
 import org.usfirst.frc.team1389.systems.OctoMecanumSystem;
 import org.usfirst.frc.team1389.systems.OctoMecanumSystem.DriveMode;
@@ -11,6 +10,7 @@ import org.usfirst.frc.team1389.systems.TeleopGearIntakeSystem;
 import org.usfirst.frc.team1389.watchers.DebugDash;
 
 import com.ctre.CANTalon.FeedbackDevice;
+import com.team1389.hardware.controls.ControlBoard;
 //import com.ctre.CANTalon.FeedbackDevice;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
@@ -47,12 +47,11 @@ public class TeleopMain
 
 	private GearIntakeSystem setupGearIntake(Supplier<DriveMode> driveMode)
 	{
-
 		TeleopGearIntakeSystem Supplier = new TeleopGearIntakeSystem(robot.armAngle, robot.armVel,
 				robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(), robot.gearBeamBreak,
-				robot.gearIntakeCurrent, driveMode, controls.intakeGearBtn(), controls.prepareArmBtn(),
-				controls.placeGearBtn(), controls.stowArmBtn(), controls.armAngleAxis(), controls.outtakeAxis(),
-				controls.gearRumble(), controls.armManualTrigger());
+				robot.gearIntakeCurrent, driveMode, controls.aButton(), controls.bButton(), controls.xButton(),
+				controls.yButton(), controls.leftStickYAxis(), controls.rightTrigger(), controls.setRumble(),
+				controls.startButton());
 		return Supplier;
 	}
 

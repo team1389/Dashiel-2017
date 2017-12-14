@@ -3,8 +3,7 @@ package org.usfirst.frc.team1389.systems;
 import java.util.Arrays;
 import java.util.function.Supplier;
 
-import org.usfirst.frc.team1389.robot.controls.ControlMap;
-
+import com.team1389.hardware.controls.ControlBoard;
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.PercentIn;
@@ -29,6 +28,7 @@ public class OctoMecanumSystem extends Subsystem {
 	private DigitalOut octoShifter;
 	private DigitalIn switchModes;
 	private FourDriveOut<Percent> voltageDrive;
+	ControlBoard controls;
 
 	public OctoMecanumSystem(FourDriveOut<Percent> voltageDrive, DigitalOut octoShifter, AngleIn<Position> gyro,
 			PercentIn xAxis, PercentIn yAxis, PercentIn twist, PercentIn trim, DigitalIn switchModes,
@@ -46,8 +46,8 @@ public class OctoMecanumSystem extends Subsystem {
 		BezierCurve yCurve = new BezierCurve(.0, 0.54, 0.45, -0.07);
 		xAxis.map(d -> xCurve.getPoint(d).getY());
 		yAxis.map(d -> yCurve.getPoint(d).getY());
-		tank = new CurvatureDriveSystem(drive, yAxis, xAxis, quickTurn, ControlMap.turnSensitivity,
-				ControlMap.turnSensitivity);
+		tank = new CurvatureDriveSystem(drive, yAxis, xAxis, quickTurn, controls.turnSensitivity,
+				controls.turnSensitivity);
 	}
 
 	public Supplier<DriveMode> getDriveModeTracker() {

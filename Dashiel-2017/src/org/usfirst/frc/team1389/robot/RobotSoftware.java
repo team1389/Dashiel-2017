@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1389.robot;
 
-import com.team1389.concurrent.OhmThreadService;
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.DigitalOut;
@@ -21,7 +20,7 @@ public class RobotSoftware extends RobotHardware {
 	public RangeIn<Value> gearIntakeCurrent;
 	public RangeIn<Value> climberCurrent;
 	public RangeIn<Position> flPos, frPos;
-	public OhmThreadService threadManager;
+	public RangeIn<Value> gearBeamBreak;
 
 	public static RobotSoftware getInstance() {
 		return INSTANCE;
@@ -39,7 +38,6 @@ public class RobotSoftware extends RobotHardware {
 		gearIntakeCurrent = pdp.getCurrentIn(pdp_GEAR_INTAKE_CURRENT);
 		flPos = rearLeft.getPositionInput().adjustRange(0, 1024, 0, 1);
 		frPos = rearRight.getPositionInput().adjustRange(0, 1024, 0, 1);
-		threadManager = new OhmThreadService(20);
 	}
 
 }
