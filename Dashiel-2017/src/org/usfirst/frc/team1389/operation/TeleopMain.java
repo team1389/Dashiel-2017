@@ -3,14 +3,12 @@ package org.usfirst.frc.team1389.operation;
 import java.util.function.Supplier;
 
 import org.usfirst.frc.team1389.robot.RobotSoftware;
-import org.usfirst.frc.team1389.systems.FancyLightSystem;
 import org.usfirst.frc.team1389.systems.GearIntakeSystem;
 import org.usfirst.frc.team1389.systems.TeleopGearIntakeSystem;
 import org.usfirst.frc.team1389.watchers.DebugDash;
 
 import com.team1389.hardware.controls.ControlBoard;
 import com.team1389.hardware.inputs.software.DigitalIn;
-import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
 import com.team1389.system.drive.OctoMecanumSystem;
 import com.team1389.system.drive.OctoMecanumSystem.DriveMode;
@@ -47,8 +45,8 @@ public class TeleopMain
 		OctoMecanumSystem drive = setupDrive();
 		GearIntakeSystem gearIntake = setupGearIntake(drive.getDriveModeTracker());
 
-		DebugDash.getInstance().watch( gearIntake);
-		manager = new SystemManager(drive,  gearIntake);
+		DebugDash.getInstance().watch(gearIntake);
+		manager = new SystemManager(drive, gearIntake);
 		manager.init();
 	}
 
@@ -69,8 +67,12 @@ public class TeleopMain
 	 */
 	private GearIntakeSystem setupGearIntake(Supplier<DriveMode> driveMode)
 	{
+		// since we don't have a beam break on this robot, beambreak defaults to
+		// false.
+		// from a cursory scan of GearIntakeSystem, that shouldn't affect
+		// anything besides making us start in stowed over carrying
 		TeleopGearIntakeSystem Supplier = new TeleopGearIntakeSystem(robot.armAngle, robot.armVel,
-				robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(), robot.gearBeamBreak,
+				robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(), new DigitalIn(() -> false),
 				robot.gearIntakeCurrent, driveMode, controls.aButton(), controls.bButton(), controls.xButton(),
 				controls.yButton(), controls.leftStickYAxis(), controls.rightTrigger(), controls.setRumble(),
 				controls.startButton());
@@ -82,14 +84,13 @@ public class TeleopMain
 	 * @return a new ClimberSystem
 	 */
 
-
 	/**
 	 * periodically calls update method in all subsystems
 	 */
 	public void periodic()
 	{
 		manager.update();
-	
+
 	}
 
 }
