@@ -30,14 +30,16 @@ public class RobotSoftware extends RobotHardware {
 		gyroInput = gyro.getAngleInput();
 		pistons = flPiston.getDigitalOut().addFollowers(frPiston.getDigitalOut(), rlPiston.getDigitalOut(),
 				rrPiston.getDigitalOut(), new DigitalOut(System.out::println));
-		voltageDrive = new FourDriveOut<>(frontLeft.getVoltageOutput(), frontRight.getVoltageOutput(),
-				rearLeft.getVoltageOutput(), rearRight.getVoltageOutput());
-		armAngleNoOffset = armElevator.getAbsoluteIn().mapToAngle(Position.class).invert().scale(12.0 / 28.0);
+		voltageDrive = new FourDriveOut<>(frontLeft.getVoltageController(), frontRight.getVoltageController(),
+				rearLeft.getVoltageController(), rearRight.getVoltageController());
+
+		// Sensor scaling is probably wrong
+		armAngleNoOffset = armElevator.getSensorPositionStream().mapToAngle(Position.class).invert().scale(12.0 / 28.0);
 		armAngle = armAngleNoOffset.copy().offset(-RobotConstants.armOffset);
-		armVel = armElevator.getSpeedInput().scale(28 / 12).mapToAngle(Speed.class);
+		armVel = armElevator.getVelocityStream().scale(28 / 12).mapToAngle(Speed.class);
 		gearIntakeCurrent = pdp.getCurrentIn(pdp_GEAR_INTAKE_CURRENT);
-		flPos = rearLeft.getPositionInput().adjustRange(0, 1024, 0, 1);
-		frPos = rearRight.getPositionInput().adjustRange(0, 1024, 0, 1);
+		flPos = rearLeft.getSensorPositionStream().adjustRange(0, 1024, 0, 1);
+		frPos = rearRight.getSensorPositionStream().adjustRange(0, 1024, 0, 1);
 	}
 
 }
