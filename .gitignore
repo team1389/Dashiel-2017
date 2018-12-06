@@ -1,1 +1,8 @@
 /bin/
+/build/
+/build/*
+/export/
+/dist/
+/bin/
+/.gradle/
+.vscode/
