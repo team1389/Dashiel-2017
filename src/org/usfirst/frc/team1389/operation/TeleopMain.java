@@ -10,8 +10,8 @@ import org.usfirst.frc.team1389.watchers.DebugDash;
 import com.team1389.hardware.controls.ControlBoard;
 import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.system.SystemManager;
-import com.team1389.system.drive.OctoMecanumSystem;
-import com.team1389.system.drive.OctoMecanumSystem.DriveMode;
+import com.team1389.system.drive.OctocanumSystem;
+import com.team1389.system.drive.OctocanumSystem.DriveMode;
 
 /**
  * system manager
@@ -19,8 +19,7 @@ import com.team1389.system.drive.OctoMecanumSystem.DriveMode;
  * @author Quunii
  *
  */
-public class TeleopMain
-{
+public class TeleopMain {
 	SystemManager manager;
 	ControlBoard controls;
 	RobotSoftware robot;
@@ -28,21 +27,18 @@ public class TeleopMain
 
 	/**
 	 * 
-	 * @param robot
-	 *            container of all ohm streams
+	 * @param robot container of all ohm streams
 	 */
-	public TeleopMain(RobotSoftware robot)
-	{
+	public TeleopMain(RobotSoftware robot) {
 		this.robot = robot;
 	}
 
 	/**
 	 * initializes systems, and adds them to a list of systems to update
 	 */
-	public void init()
-	{
+	public void init() {
 		controls = ControlBoard.getInstance();
-		OctoMecanumSystem drive = setupDrive();
+		OctocanumSystem drive = setupDrive();
 		GearIntakeSystem gearIntake = setupGearIntake(drive.getDriveModeTracker());
 
 		DebugDash.getInstance().watch(gearIntake);
@@ -52,11 +48,10 @@ public class TeleopMain
 
 	/**
 	 * 
-	 * @return a new OctoMecanumSystem
+	 * @return a new OctocanumSystem
 	 */
-	private OctoMecanumSystem setupDrive()
-	{
-		return new OctoMecanumSystem(robot.voltageDrive, robot.pistons, robot.gyroInput, controls.driveXAxis(),
+	private OctocanumSystem setupDrive() {
+		return new OctocanumSystem(robot.voltageDrive, robot.pistons, robot.gyroInput, controls.driveXAxis(),
 				controls.driveYAxis(), controls.driveYaw(), controls.driveTrim(), controls.driveModeBtn(),
 				controls.driveModifierBtn());
 	}
@@ -65,18 +60,14 @@ public class TeleopMain
 	 * 
 	 * @return a new GearIntakeSystem
 	 */
-	private GearIntakeSystem setupGearIntake(Supplier<DriveMode> driveMode)
-	{
-		// since we don't have a beam break on this robot, beambreak defaults to
-		// false.
-		// from a cursory scan of GearIntakeSystem, that shouldn't affect
-		// anything besides making us start in stowed over carrying
-		TeleopGearIntakeSystem Supplier = new TeleopGearIntakeSystem(robot.armAngle, robot.armVel,
-				robot.armElevator.getVoltageOutput(), robot.gearIntake.getVoltageOutput(), new DigitalIn(() -> false),
+	private GearIntakeSystem setupGearIntake(Supplier<DriveMode> driveMode) {
+
+		// making assumption that there is no beambreak, setting up so it always thinks
+		// the sensor is not triggered
+		return new TeleopGearIntakeSystem(robot.armAngle, robot.armVel, robot.armVolt, robot.intakeVolt, () -> false,
 				robot.gearIntakeCurrent, driveMode, controls.aButton(), controls.bButton(), controls.xButton(),
 				controls.yButton(), controls.leftStickYAxis(), controls.rightTrigger(), controls.setRumble(),
 				controls.startButton());
-		return Supplier;
 	}
 
 	/**
@@ -87,8 +78,7 @@ public class TeleopMain
 	/**
 	 * periodically calls update method in all subsystems
 	 */
-	public void periodic()
-	{
+	public void periodic() {
 		manager.update();
 
 	}

@@ -3,6 +3,7 @@ package org.usfirst.frc.team1389.robot;
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.DigitalOut;
+import com.team1389.hardware.outputs.software.PercentOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
@@ -14,6 +15,8 @@ public class RobotSoftware extends RobotHardware {
 	public AngleIn<Position> gyroInput;
 	public DigitalOut pistons;
 	public FourDriveOut<Percent> voltageDrive;
+	public PercentOut armVolt;
+	public PercentOut intakeVolt;
 	public AngleIn<Position> armAngle;
 	public AngleIn<Position> armAngleNoOffset;
 	public AngleIn<Speed> armVel;
@@ -32,6 +35,8 @@ public class RobotSoftware extends RobotHardware {
 				rrPiston.getDigitalOut(), new DigitalOut(System.out::println));
 		voltageDrive = new FourDriveOut<>(frontLeft.getVoltageController(), frontRight.getVoltageController(),
 				rearLeft.getVoltageController(), rearRight.getVoltageController());
+		armVolt = armElevator.getVoltageController();
+		intakeVolt = gearIntake.getVoltageController();
 
 		// Sensor scaling is probably wrong
 		armAngleNoOffset = armElevator.getSensorPositionStream().mapToAngle(Position.class).invert().scale(12.0 / 28.0);
