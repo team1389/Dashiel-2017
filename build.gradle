@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2018.01.07"
+    id "jaci.openrio.gradle.GradleRIO" version "2019.01.01"
 }
 
 def TEAM = 1389
@@ -36,7 +36,7 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
-   	compile files('../ohm/Ohm/build/libs/ohm-0.1.0.jar')
+   	compile files('../Ohm/build/libs/ohm-0.1.0.jar')
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
